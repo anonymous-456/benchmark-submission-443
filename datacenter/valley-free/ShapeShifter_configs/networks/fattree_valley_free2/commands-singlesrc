@@ -1,0 +1,2 @@
+init-testrig networks/fattree_valley_free/fattree_valley_free2
+get ai-reachability ingressNodeRegex="edge-4", finalNodeRegex="edge-2", useAbstraction=True 

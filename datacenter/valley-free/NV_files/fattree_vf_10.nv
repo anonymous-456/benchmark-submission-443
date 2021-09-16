@@ -1,0 +1,2055 @@
+(* fattree valley-free reachability *)
+(* dest: 75 *)
+(* src: 124 *)
+(* single-src reachability *)
+
+let src =  124
+
+type bgpType = {comm: int; lp: int; length: int}
+type attribute = option[bgpType]
+let nodes = 125
+let edges = {
+0 = 1;
+0 = 2;
+0 = 3;
+0 = 4;
+0 = 5;
+0 = 6;
+0 = 7;
+0 = 8;
+0 = 9;
+0 = 10;
+15 = 16;
+15 = 17;
+15 = 18;
+15 = 19;
+15 = 20;
+15 = 21;
+15 = 22;
+15 = 23;
+15 = 24;
+15 = 25;
+30 = 31;
+30 = 32;
+30 = 33;
+30 = 34;
+30 = 35;
+30 = 36;
+30 = 37;
+30 = 38;
+30 = 39;
+30 = 40;
+45 = 46;
+45 = 47;
+45 = 48;
+45 = 49;
+45 = 50;
+45 = 51;
+45 = 52;
+45 = 53;
+45 = 54;
+45 = 55;
+60 = 61;
+60 = 62;
+60 = 63;
+60 = 64;
+60 = 65;
+60 = 66;
+60 = 67;
+60 = 68;
+60 = 69;
+60 = 70;
+1 = 11;
+1 = 12;
+1 = 13;
+1 = 14;
+1 = 75;
+1 = 76;
+1 = 77;
+1 = 78;
+1 = 79;
+16 = 26;
+16 = 27;
+16 = 28;
+16 = 29;
+16 = 75;
+16 = 76;
+16 = 77;
+16 = 78;
+16 = 79;
+31 = 41;
+31 = 42;
+31 = 43;
+31 = 44;
+31 = 75;
+31 = 76;
+31 = 77;
+31 = 78;
+31 = 79;
+46 = 56;
+46 = 57;
+46 = 58;
+46 = 59;
+46 = 75;
+46 = 76;
+46 = 77;
+46 = 78;
+46 = 79;
+61 = 71;
+61 = 72;
+61 = 73;
+61 = 74;
+61 = 75;
+61 = 76;
+61 = 77;
+61 = 78;
+61 = 79;
+2 = 11;
+2 = 12;
+2 = 13;
+2 = 14;
+2 = 80;
+2 = 81;
+2 = 82;
+2 = 83;
+2 = 84;
+17 = 26;
+17 = 27;
+17 = 28;
+17 = 29;
+17 = 80;
+17 = 81;
+17 = 82;
+17 = 83;
+17 = 84;
+32 = 41;
+32 = 42;
+32 = 43;
+32 = 44;
+32 = 80;
+32 = 81;
+32 = 82;
+32 = 83;
+32 = 84;
+47 = 56;
+47 = 57;
+47 = 58;
+47 = 59;
+47 = 80;
+47 = 81;
+47 = 82;
+47 = 83;
+47 = 84;
+62 = 71;
+62 = 72;
+62 = 73;
+62 = 74;
+62 = 80;
+62 = 81;
+62 = 82;
+62 = 83;
+62 = 84;
+3 = 11;
+3 = 12;
+3 = 13;
+3 = 14;
+3 = 85;
+3 = 86;
+3 = 87;
+3 = 88;
+3 = 89;
+18 = 26;
+18 = 27;
+18 = 28;
+18 = 29;
+18 = 85;
+18 = 86;
+18 = 87;
+18 = 88;
+18 = 89;
+33 = 41;
+33 = 42;
+33 = 43;
+33 = 44;
+33 = 85;
+33 = 86;
+33 = 87;
+33 = 88;
+33 = 89;
+48 = 56;
+48 = 57;
+48 = 58;
+48 = 59;
+48 = 85;
+48 = 86;
+48 = 87;
+48 = 88;
+48 = 89;
+63 = 71;
+63 = 72;
+63 = 73;
+63 = 74;
+63 = 85;
+63 = 86;
+63 = 87;
+63 = 88;
+63 = 89;
+4 = 11;
+4 = 12;
+4 = 13;
+4 = 14;
+4 = 90;
+4 = 91;
+4 = 92;
+4 = 93;
+4 = 94;
+19 = 26;
+19 = 27;
+19 = 28;
+19 = 29;
+19 = 90;
+19 = 91;
+19 = 92;
+19 = 93;
+19 = 94;
+34 = 41;
+34 = 42;
+34 = 43;
+34 = 44;
+34 = 90;
+34 = 91;
+34 = 92;
+34 = 93;
+34 = 94;
+49 = 56;
+49 = 57;
+49 = 58;
+49 = 59;
+49 = 90;
+49 = 91;
+49 = 92;
+49 = 93;
+49 = 94;
+64 = 71;
+64 = 72;
+64 = 73;
+64 = 74;
+64 = 90;
+64 = 91;
+64 = 92;
+64 = 93;
+64 = 94;
+5 = 11;
+5 = 12;
+5 = 13;
+5 = 14;
+5 = 95;
+5 = 96;
+5 = 97;
+5 = 98;
+5 = 99;
+20 = 26;
+20 = 27;
+20 = 28;
+20 = 29;
+20 = 95;
+20 = 96;
+20 = 97;
+20 = 98;
+20 = 99;
+35 = 41;
+35 = 42;
+35 = 43;
+35 = 44;
+35 = 95;
+35 = 96;
+35 = 97;
+35 = 98;
+35 = 99;
+50 = 56;
+50 = 57;
+50 = 58;
+50 = 59;
+50 = 95;
+50 = 96;
+50 = 97;
+50 = 98;
+50 = 99;
+65 = 71;
+65 = 72;
+65 = 73;
+65 = 74;
+65 = 95;
+65 = 96;
+65 = 97;
+65 = 98;
+65 = 99;
+6 = 11;
+6 = 12;
+6 = 13;
+6 = 14;
+6 = 100;
+6 = 101;
+6 = 102;
+6 = 103;
+6 = 104;
+21 = 26;
+21 = 27;
+21 = 28;
+21 = 29;
+21 = 100;
+21 = 101;
+21 = 102;
+21 = 103;
+21 = 104;
+36 = 41;
+36 = 42;
+36 = 43;
+36 = 44;
+36 = 100;
+36 = 101;
+36 = 102;
+36 = 103;
+36 = 104;
+51 = 56;
+51 = 57;
+51 = 58;
+51 = 59;
+51 = 100;
+51 = 101;
+51 = 102;
+51 = 103;
+51 = 104;
+66 = 71;
+66 = 72;
+66 = 73;
+66 = 74;
+66 = 100;
+66 = 101;
+66 = 102;
+66 = 103;
+66 = 104;
+7 = 11;
+7 = 12;
+7 = 13;
+7 = 14;
+7 = 105;
+7 = 106;
+7 = 107;
+7 = 108;
+7 = 109;
+22 = 26;
+22 = 27;
+22 = 28;
+22 = 29;
+22 = 105;
+22 = 106;
+22 = 107;
+22 = 108;
+22 = 109;
+37 = 41;
+37 = 42;
+37 = 43;
+37 = 44;
+37 = 105;
+37 = 106;
+37 = 107;
+37 = 108;
+37 = 109;
+52 = 56;
+52 = 57;
+52 = 58;
+52 = 59;
+52 = 105;
+52 = 106;
+52 = 107;
+52 = 108;
+52 = 109;
+67 = 71;
+67 = 72;
+67 = 73;
+67 = 74;
+67 = 105;
+67 = 106;
+67 = 107;
+67 = 108;
+67 = 109;
+8 = 11;
+8 = 12;
+8 = 13;
+8 = 14;
+8 = 110;
+8 = 111;
+8 = 112;
+8 = 113;
+8 = 114;
+23 = 26;
+23 = 27;
+23 = 28;
+23 = 29;
+23 = 110;
+23 = 111;
+23 = 112;
+23 = 113;
+23 = 114;
+38 = 41;
+38 = 42;
+38 = 43;
+38 = 44;
+38 = 110;
+38 = 111;
+38 = 112;
+38 = 113;
+38 = 114;
+53 = 56;
+53 = 57;
+53 = 58;
+53 = 59;
+53 = 110;
+53 = 111;
+53 = 112;
+53 = 113;
+53 = 114;
+68 = 71;
+68 = 72;
+68 = 73;
+68 = 74;
+68 = 110;
+68 = 111;
+68 = 112;
+68 = 113;
+68 = 114;
+9 = 11;
+9 = 12;
+9 = 13;
+9 = 14;
+9 = 115;
+9 = 116;
+9 = 117;
+9 = 118;
+9 = 119;
+24 = 26;
+24 = 27;
+24 = 28;
+24 = 29;
+24 = 115;
+24 = 116;
+24 = 117;
+24 = 118;
+24 = 119;
+39 = 41;
+39 = 42;
+39 = 43;
+39 = 44;
+39 = 115;
+39 = 116;
+39 = 117;
+39 = 118;
+39 = 119;
+54 = 56;
+54 = 57;
+54 = 58;
+54 = 59;
+54 = 115;
+54 = 116;
+54 = 117;
+54 = 118;
+54 = 119;
+69 = 71;
+69 = 72;
+69 = 73;
+69 = 74;
+69 = 115;
+69 = 116;
+69 = 117;
+69 = 118;
+69 = 119;
+10 = 11;
+10 = 12;
+10 = 13;
+10 = 14;
+10 = 120;
+10 = 121;
+10 = 122;
+10 = 123;
+10 = 124;
+25 = 26;
+25 = 27;
+25 = 28;
+25 = 29;
+25 = 120;
+25 = 121;
+25 = 122;
+25 = 123;
+25 = 124;
+40 = 41;
+40 = 42;
+40 = 43;
+40 = 44;
+40 = 120;
+40 = 121;
+40 = 122;
+40 = 123;
+40 = 124;
+55 = 56;
+55 = 57;
+55 = 58;
+55 = 59;
+55 = 120;
+55 = 121;
+55 = 122;
+55 = 123;
+55 = 124;
+70 = 71;
+70 = 72;
+70 = 73;
+70 = 74;
+70 = 120;
+70 = 121;
+70 = 122;
+70 = 123;
+70 = 124;
+}
+
+let update_comm c =
+    match c with
+    | 0 -> 1
+    | 1 -> 2
+    | _ -> 3
+
+ 
+let trans edge x =
+    match x with
+    | None -> None
+    | Some r -> 
+        (match edge with
+	| 1n~0n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 1n~11n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 1n~12n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 1n~13n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 1n~14n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 1n~75n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 1n~76n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 1n~77n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 1n~78n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 1n~79n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 16n~15n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 16n~26n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 16n~27n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 16n~28n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 16n~29n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 16n~75n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 16n~76n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 16n~77n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 16n~78n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 16n~79n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 31n~30n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 31n~41n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 31n~42n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 31n~43n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 31n~44n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 31n~75n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 31n~76n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 31n~77n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 31n~78n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 31n~79n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 46n~45n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 46n~56n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 46n~57n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 46n~58n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 46n~59n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 46n~75n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 46n~76n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 46n~77n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 46n~78n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 46n~79n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 61n~60n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 61n~71n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 61n~72n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 61n~73n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 61n~74n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 61n~75n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 61n~76n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 61n~77n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 61n~78n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 61n~79n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 2n~0n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 2n~11n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 2n~12n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 2n~13n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 2n~14n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 2n~80n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 2n~81n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 2n~82n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 2n~83n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 2n~84n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 17n~15n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 17n~26n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 17n~27n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 17n~28n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 17n~29n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 17n~80n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 17n~81n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 17n~82n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 17n~83n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 17n~84n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 32n~30n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 32n~41n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 32n~42n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 32n~43n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 32n~44n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 32n~80n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 32n~81n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 32n~82n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 32n~83n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 32n~84n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 47n~45n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 47n~56n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 47n~57n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 47n~58n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 47n~59n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 47n~80n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 47n~81n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 47n~82n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 47n~83n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 47n~84n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 62n~60n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 62n~71n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 62n~72n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 62n~73n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 62n~74n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 62n~80n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 62n~81n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 62n~82n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 62n~83n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 62n~84n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 3n~0n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 3n~11n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 3n~12n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 3n~13n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 3n~14n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 3n~85n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 3n~86n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 3n~87n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 3n~88n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 3n~89n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 18n~15n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 18n~26n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 18n~27n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 18n~28n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 18n~29n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 18n~85n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 18n~86n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 18n~87n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 18n~88n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 18n~89n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 33n~30n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 33n~41n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 33n~42n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 33n~43n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 33n~44n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 33n~85n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 33n~86n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 33n~87n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 33n~88n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 33n~89n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 48n~45n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 48n~56n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 48n~57n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 48n~58n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 48n~59n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 48n~85n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 48n~86n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 48n~87n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 48n~88n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 48n~89n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 63n~60n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 63n~71n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 63n~72n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 63n~73n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 63n~74n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 63n~85n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 63n~86n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 63n~87n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 63n~88n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 63n~89n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 4n~0n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 4n~11n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 4n~12n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 4n~13n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 4n~14n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 4n~90n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 4n~91n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 4n~92n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 4n~93n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 4n~94n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 19n~15n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 19n~26n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 19n~27n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 19n~28n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 19n~29n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 19n~90n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 19n~91n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 19n~92n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 19n~93n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 19n~94n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 34n~30n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 34n~41n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 34n~42n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 34n~43n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 34n~44n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 34n~90n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 34n~91n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 34n~92n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 34n~93n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 34n~94n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 49n~45n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 49n~56n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 49n~57n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 49n~58n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 49n~59n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 49n~90n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 49n~91n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 49n~92n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 49n~93n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 49n~94n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 64n~60n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 64n~71n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 64n~72n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 64n~73n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 64n~74n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 64n~90n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 64n~91n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 64n~92n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 64n~93n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 64n~94n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 5n~0n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 5n~11n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 5n~12n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 5n~13n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 5n~14n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 5n~95n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 5n~96n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 5n~97n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 5n~98n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 5n~99n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 20n~15n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 20n~26n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 20n~27n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 20n~28n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 20n~29n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 20n~95n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 20n~96n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 20n~97n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 20n~98n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 20n~99n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 35n~30n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 35n~41n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 35n~42n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 35n~43n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 35n~44n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 35n~95n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 35n~96n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 35n~97n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 35n~98n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 35n~99n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 50n~45n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 50n~56n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 50n~57n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 50n~58n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 50n~59n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 50n~95n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 50n~96n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 50n~97n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 50n~98n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 50n~99n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 65n~60n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 65n~71n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 65n~72n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 65n~73n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 65n~74n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 65n~95n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 65n~96n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 65n~97n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 65n~98n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 65n~99n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 6n~0n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 6n~11n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 6n~12n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 6n~13n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 6n~14n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 6n~100n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 6n~101n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 6n~102n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 6n~103n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 6n~104n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 21n~15n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 21n~26n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 21n~27n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 21n~28n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 21n~29n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 21n~100n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 21n~101n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 21n~102n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 21n~103n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 21n~104n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 36n~30n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 36n~41n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 36n~42n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 36n~43n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 36n~44n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 36n~100n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 36n~101n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 36n~102n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 36n~103n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 36n~104n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 51n~45n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 51n~56n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 51n~57n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 51n~58n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 51n~59n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 51n~100n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 51n~101n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 51n~102n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 51n~103n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 51n~104n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 66n~60n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 66n~71n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 66n~72n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 66n~73n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 66n~74n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 66n~100n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 66n~101n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 66n~102n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 66n~103n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 66n~104n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 7n~0n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 7n~11n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 7n~12n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 7n~13n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 7n~14n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 7n~105n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 7n~106n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 7n~107n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 7n~108n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 7n~109n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 22n~15n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 22n~26n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 22n~27n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 22n~28n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 22n~29n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 22n~105n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 22n~106n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 22n~107n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 22n~108n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 22n~109n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 37n~30n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 37n~41n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 37n~42n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 37n~43n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 37n~44n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 37n~105n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 37n~106n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 37n~107n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 37n~108n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 37n~109n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 52n~45n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 52n~56n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 52n~57n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 52n~58n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 52n~59n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 52n~105n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 52n~106n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 52n~107n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 52n~108n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 52n~109n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 67n~60n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 67n~71n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 67n~72n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 67n~73n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 67n~74n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 67n~105n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 67n~106n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 67n~107n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 67n~108n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 67n~109n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 8n~0n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 8n~11n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 8n~12n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 8n~13n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 8n~14n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 8n~110n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 8n~111n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 8n~112n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 8n~113n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 8n~114n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 23n~15n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 23n~26n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 23n~27n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 23n~28n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 23n~29n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 23n~110n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 23n~111n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 23n~112n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 23n~113n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 23n~114n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 38n~30n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 38n~41n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 38n~42n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 38n~43n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 38n~44n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 38n~110n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 38n~111n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 38n~112n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 38n~113n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 38n~114n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 53n~45n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 53n~56n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 53n~57n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 53n~58n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 53n~59n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 53n~110n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 53n~111n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 53n~112n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 53n~113n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 53n~114n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 68n~60n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 68n~71n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 68n~72n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 68n~73n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 68n~74n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 68n~110n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 68n~111n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 68n~112n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 68n~113n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 68n~114n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 9n~0n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 9n~11n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 9n~12n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 9n~13n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 9n~14n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 9n~115n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 9n~116n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 9n~117n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 9n~118n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 9n~119n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 24n~15n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 24n~26n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 24n~27n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 24n~28n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 24n~29n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 24n~115n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 24n~116n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 24n~117n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 24n~118n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 24n~119n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 39n~30n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 39n~41n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 39n~42n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 39n~43n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 39n~44n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 39n~115n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 39n~116n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 39n~117n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 39n~118n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 39n~119n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 54n~45n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 54n~56n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 54n~57n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 54n~58n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 54n~59n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 54n~115n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 54n~116n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 54n~117n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 54n~118n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 54n~119n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 69n~60n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 69n~71n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 69n~72n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 69n~73n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 69n~74n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 69n~115n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 69n~116n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 69n~117n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 69n~118n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 69n~119n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 10n~0n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 10n~11n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 10n~12n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 10n~13n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 10n~14n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 10n~120n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 10n~121n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 10n~122n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 10n~123n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 10n~124n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 25n~15n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 25n~26n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 25n~27n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 25n~28n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 25n~29n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 25n~120n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 25n~121n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 25n~122n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 25n~123n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 25n~124n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 40n~30n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 40n~41n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 40n~42n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 40n~43n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 40n~44n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 40n~120n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 40n~121n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 40n~122n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 40n~123n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 40n~124n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 55n~45n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 55n~56n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 55n~57n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 55n~58n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 55n~59n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 55n~120n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 55n~121n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 55n~122n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 55n~123n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 55n~124n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 70n~60n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 70n~71n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 70n~72n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 70n~73n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 70n~74n -> if (r.comm = 0) then Some {r with comm = 1; length = r.length + 1} else None
+                    
+	| 70n~120n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 70n~121n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 70n~122n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 70n~123n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 70n~124n -> Some {r with comm = (update_comm r.comm); length = r.length + 1}
+                
+	| 75n~1n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 75n~16n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 75n~31n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 75n~46n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 75n~61n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 76n~1n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 76n~16n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 76n~31n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 76n~46n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 76n~61n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 77n~1n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 77n~16n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 77n~31n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 77n~46n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 77n~61n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 78n~1n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 78n~16n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 78n~31n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 78n~46n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 78n~61n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 79n~1n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 79n~16n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 79n~31n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 79n~46n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 79n~61n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 80n~2n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 80n~17n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 80n~32n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 80n~47n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 80n~62n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 81n~2n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 81n~17n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 81n~32n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 81n~47n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 81n~62n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 82n~2n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 82n~17n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 82n~32n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 82n~47n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 82n~62n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 83n~2n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 83n~17n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 83n~32n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 83n~47n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 83n~62n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 84n~2n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 84n~17n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 84n~32n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 84n~47n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 84n~62n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 85n~3n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 85n~18n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 85n~33n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 85n~48n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 85n~63n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 86n~3n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 86n~18n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 86n~33n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 86n~48n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 86n~63n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 87n~3n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 87n~18n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 87n~33n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 87n~48n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 87n~63n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 88n~3n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 88n~18n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 88n~33n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 88n~48n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 88n~63n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 89n~3n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 89n~18n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 89n~33n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 89n~48n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 89n~63n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 90n~4n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 90n~19n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 90n~34n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 90n~49n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 90n~64n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 91n~4n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 91n~19n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 91n~34n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 91n~49n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 91n~64n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 92n~4n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 92n~19n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 92n~34n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 92n~49n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 92n~64n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 93n~4n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 93n~19n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 93n~34n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 93n~49n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 93n~64n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 94n~4n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 94n~19n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 94n~34n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 94n~49n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 94n~64n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 95n~5n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 95n~20n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 95n~35n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 95n~50n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 95n~65n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 96n~5n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 96n~20n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 96n~35n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 96n~50n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 96n~65n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 97n~5n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 97n~20n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 97n~35n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 97n~50n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 97n~65n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 98n~5n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 98n~20n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 98n~35n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 98n~50n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 98n~65n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 99n~5n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 99n~20n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 99n~35n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 99n~50n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 99n~65n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 100n~6n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 100n~21n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 100n~36n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 100n~51n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 100n~66n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 101n~6n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 101n~21n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 101n~36n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 101n~51n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 101n~66n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 102n~6n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 102n~21n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 102n~36n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 102n~51n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 102n~66n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 103n~6n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 103n~21n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 103n~36n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 103n~51n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 103n~66n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 104n~6n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 104n~21n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 104n~36n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 104n~51n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 104n~66n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 105n~7n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 105n~22n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 105n~37n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 105n~52n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 105n~67n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 106n~7n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 106n~22n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 106n~37n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 106n~52n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 106n~67n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 107n~7n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 107n~22n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 107n~37n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 107n~52n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 107n~67n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 108n~7n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 108n~22n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 108n~37n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 108n~52n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 108n~67n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 109n~7n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 109n~22n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 109n~37n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 109n~52n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 109n~67n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 110n~8n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 110n~23n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 110n~38n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 110n~53n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 110n~68n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 111n~8n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 111n~23n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 111n~38n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 111n~53n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 111n~68n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 112n~8n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 112n~23n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 112n~38n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 112n~53n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 112n~68n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 113n~8n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 113n~23n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 113n~38n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 113n~53n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 113n~68n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 114n~8n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 114n~23n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 114n~38n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 114n~53n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 114n~68n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 115n~9n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 115n~24n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 115n~39n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 115n~54n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 115n~69n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 116n~9n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 116n~24n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 116n~39n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 116n~54n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 116n~69n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 117n~9n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 117n~24n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 117n~39n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 117n~54n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 117n~69n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 118n~9n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 118n~24n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 118n~39n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 118n~54n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 118n~69n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 119n~9n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 119n~24n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 119n~39n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 119n~54n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 119n~69n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 120n~10n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 120n~25n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 120n~40n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 120n~55n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 120n~70n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 121n~10n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 121n~25n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 121n~40n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 121n~55n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 121n~70n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 122n~10n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 122n~25n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 122n~40n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 122n~55n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 122n~70n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 123n~10n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 123n~25n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 123n~40n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 123n~55n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 123n~70n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 124n~10n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 124n~25n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 124n~40n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 124n~55n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| 124n~70n -> if (r.comm = 0) then Some {r with length = r.length + 1} else None
+                    
+	| _ -> Some {r with length = r.length + 1}
+	)
+
+let merge u x y =
+    match (x, y) with
+    | (None, _) -> y
+    | (_, None) -> x
+    | (Some i, Some j) -> 
+        if i.lp > j.lp then x
+        else if j.lp > i.lp then y
+        else if i.length < j.length then x else y
+    
+
+let init node =
+    match node with
+    | 75n -> Some { comm = 0; lp = 100; length = 0;}
+    | _ -> None
+    
+
+let reachable (u: tnode) (x: attribute) =
+    match u with
+    | src -> match x with
+            | None -> false
+            | Some _ -> true
+    | _ -> true
+
+let sol = solution {init = init; trans = trans; merge = merge}
+
+assert foldNodes (fun u v acc -> acc && reachable u v) sol true
+

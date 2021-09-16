@@ -1,0 +1,448 @@
+!
+! Last configuration change at 14:32:22 UTC Wed Oct 11 2017 by demo
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+!
+hostname aggregation-982
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+aaa new-model
+!
+!
+aaa authorization exec default local
+!
+!
+!
+!
+!
+aaa session-id common
+no ip icmp rate-limit unreachable
+ip cef
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip domain name demo.com
+no ipv6 cef
+!
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+!
+!
+!
+username demo privilege 15 password 0 demo
+!
+!
+ip tcp synwait-time 5
+ip ssh source-interface GigabitEthernet0/0
+ip ssh rsa keypair-name lhr-fw-02.demo.com
+ip ssh version 2
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+  ip address 70.3.214.0/32
+!
+interface Serial0
+  ip address 10.39.1.1/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial1
+  ip address 10.39.31.1/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial2
+  ip address 10.40.105.1/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial3
+  ip address 10.22.98.0/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial4
+  ip address 10.22.99.0/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial5
+  ip address 10.22.100.0/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial6
+  ip address 10.22.101.0/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial7
+  ip address 10.22.102.0/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial8
+  ip address 10.22.103.0/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial9
+  ip address 10.22.104.0/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial10
+  ip address 10.22.105.0/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial11
+  ip address 10.22.106.0/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial12
+  ip address 10.22.107.0/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial13
+  ip address 10.22.108.0/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial14
+  ip address 10.22.109.0/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial15
+  ip address 10.22.110.0/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial16
+  ip address 10.22.111.0/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial17
+  ip address 10.22.112.0/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial18
+  ip address 10.39.61.1/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial19
+  ip address 10.39.91.1/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial20
+  ip address 10.39.121.1/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial21
+  ip address 10.39.151.1/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial22
+  ip address 10.39.181.1/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial23
+  ip address 10.39.211.1/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial24
+  ip address 10.39.241.1/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial25
+  ip address 10.40.15.1/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial26
+  ip address 10.40.45.1/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial27
+  ip address 10.40.75.1/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial28
+  ip address 10.38.197.1/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+interface Serial29
+  ip address 10.38.227.1/31
+  media-type gbic
+  speed 1000
+  duplex full
+  no negotiation auto
+  no cdp enable
+!
+router bgp 982
+  bgp bestpath as-path multipath-relax
+  neighbor 10.39.1.0 remote-as 107
+  neighbor 10.39.1.0 send-community
+  neighbor 10.39.1.0 route-map  filter_comm out
+  neighbor 10.39.31.0 remote-as 108
+  neighbor 10.39.31.0 send-community
+  neighbor 10.39.31.0 route-map  filter_comm out
+  neighbor 10.40.105.0 remote-as 119
+  neighbor 10.40.105.0 send-community
+  neighbor 10.40.105.0 route-map  filter_comm out
+  neighbor 10.22.98.1 remote-as 990
+  neighbor 10.22.98.1 send-community
+  neighbor 10.22.98.1 route-map  set_communities out
+  neighbor 10.22.99.1 remote-as 991
+  neighbor 10.22.99.1 send-community
+  neighbor 10.22.99.1 route-map  set_communities out
+  neighbor 10.22.100.1 remote-as 992
+  neighbor 10.22.100.1 send-community
+  neighbor 10.22.100.1 route-map  set_communities out
+  neighbor 10.22.101.1 remote-as 993
+  neighbor 10.22.101.1 send-community
+  neighbor 10.22.101.1 route-map  set_communities out
+  neighbor 10.22.102.1 remote-as 994
+  neighbor 10.22.102.1 send-community
+  neighbor 10.22.102.1 route-map  set_communities out
+  neighbor 10.22.103.1 remote-as 995
+  neighbor 10.22.103.1 send-community
+  neighbor 10.22.103.1 route-map  set_communities out
+  neighbor 10.22.104.1 remote-as 996
+  neighbor 10.22.104.1 send-community
+  neighbor 10.22.104.1 route-map  set_communities out
+  neighbor 10.22.105.1 remote-as 997
+  neighbor 10.22.105.1 send-community
+  neighbor 10.22.105.1 route-map  set_communities out
+  neighbor 10.22.106.1 remote-as 998
+  neighbor 10.22.106.1 send-community
+  neighbor 10.22.106.1 route-map  set_communities out
+  neighbor 10.22.107.1 remote-as 999
+  neighbor 10.22.107.1 send-community
+  neighbor 10.22.107.1 route-map  set_communities out
+  neighbor 10.22.108.1 remote-as 1000
+  neighbor 10.22.108.1 send-community
+  neighbor 10.22.108.1 route-map  set_communities out
+  neighbor 10.22.109.1 remote-as 1001
+  neighbor 10.22.109.1 send-community
+  neighbor 10.22.109.1 route-map  set_communities out
+  neighbor 10.22.110.1 remote-as 1002
+  neighbor 10.22.110.1 send-community
+  neighbor 10.22.110.1 route-map  set_communities out
+  neighbor 10.22.111.1 remote-as 1003
+  neighbor 10.22.111.1 send-community
+  neighbor 10.22.111.1 route-map  set_communities out
+  neighbor 10.22.112.1 remote-as 1004
+  neighbor 10.22.112.1 send-community
+  neighbor 10.22.112.1 route-map  set_communities out
+  neighbor 10.39.61.0 remote-as 109
+  neighbor 10.39.61.0 send-community
+  neighbor 10.39.61.0 route-map  filter_comm out
+  neighbor 10.39.91.0 remote-as 110
+  neighbor 10.39.91.0 send-community
+  neighbor 10.39.91.0 route-map  filter_comm out
+  neighbor 10.39.121.0 remote-as 111
+  neighbor 10.39.121.0 send-community
+  neighbor 10.39.121.0 route-map  filter_comm out
+  neighbor 10.39.151.0 remote-as 112
+  neighbor 10.39.151.0 send-community
+  neighbor 10.39.151.0 route-map  filter_comm out
+  neighbor 10.39.181.0 remote-as 113
+  neighbor 10.39.181.0 send-community
+  neighbor 10.39.181.0 route-map  filter_comm out
+  neighbor 10.39.211.0 remote-as 114
+  neighbor 10.39.211.0 send-community
+  neighbor 10.39.211.0 route-map  filter_comm out
+  neighbor 10.39.241.0 remote-as 115
+  neighbor 10.39.241.0 send-community
+  neighbor 10.39.241.0 route-map  filter_comm out
+  neighbor 10.40.15.0 remote-as 116
+  neighbor 10.40.15.0 send-community
+  neighbor 10.40.15.0 route-map  filter_comm out
+  neighbor 10.40.45.0 remote-as 117
+  neighbor 10.40.45.0 send-community
+  neighbor 10.40.45.0 route-map  filter_comm out
+  neighbor 10.40.75.0 remote-as 118
+  neighbor 10.40.75.0 send-community
+  neighbor 10.40.75.0 route-map  filter_comm out
+  neighbor 10.38.197.0 remote-as 105
+  neighbor 10.38.197.0 send-community
+  neighbor 10.38.197.0 route-map  filter_comm out
+  neighbor 10.38.227.0 remote-as 106
+  neighbor 10.38.227.0 send-community
+  neighbor 10.38.227.0 route-map  filter_comm out
+!
+!
+ip bgp-community new-format
+ip community-list 1 permit 650:100
+ip community-list 2 permit 650:200
+!
+route-map set_communities permit 10
+  match community 1
+  set community 650:200
+route-map set_communities permit 20
+  match community 2
+  set community 650:300
+route-map set_communities permit 30
+  set community 650:400
+!
+route-map filter_comm permit 10
+  match community 1
+  set community 650:200
+!
+!
+!
+!
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+ stopbits 1
+line vty 0 4
+ transport input ssh
+!
+!
+end

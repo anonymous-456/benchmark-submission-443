@@ -1,0 +1,2 @@
+init-testrig networks/fattree/fattree30
+get ai-reachability ingressNodeRegex="edge-1124", finalNodeRegex="edge-240", useAbstraction=True 
