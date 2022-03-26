@@ -1,5 +1,3 @@
-This repository contains benchmarks for NSDI submission #443.
-
 ## Data center benchmarks
 `datacenter/shortest-path/`: FatTree topologies with a shortest-path routing policy in ACORN_IR, NV, and ShapeShifter formats.
 
